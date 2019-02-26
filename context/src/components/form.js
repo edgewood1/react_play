@@ -1,56 +1,37 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import faker from "faker";
+import CommentDetail from "./CommentDetail";
+import ApprovalCard from "./approvalCard";
 
-// synthetic events -- supported events -
-
-const app = {
-  options: ["one"]
-};
-
-const onFormSubmit = e => {
-  e.preventDefault();
-  const option = e.target.elements.option.value;
-  console.log(option);
-  if (option) {
-    app.options.push(option);
-  }
-  render();
-};
-
-const reNew = () => {
-  app.options = [];
-  render();
-};
-
-const makeDecision = () => {
-  const ranNum = Math.floor(Math.random() * app.options.length);
-  const opt = app.options[ranNum];
-  alert(opt);
-  console.log(ranNum);
-};
-
-const numbers = [44, 101, 1000];
-
-const render = () => {
-  const template = (
-    <div>
-      <button disable={app.options.length === 0} onClick={makeDecision}>
-        Pick one
-      </button>
-
-      <form onSubmit={onFormSubmit}>
-        <input type="text" name="option" />
-        <button>Add option</button>
-      </form>
-      <button onClick={reNew}>ReNew</button>
-      <ol>
-        {app.options.map((e, i) => {
-          return <li key={i}>{e}</li>;
-        })}
-      </ol>
+const App = () => {
+  return (
+    <div className="ui container comments">
+      <ApprovalCard>
+        <CommentDetail
+          name="Sam"
+          text="Sweet"
+          time="6:00"
+          image={faker.image.avatar()}
+        />
+      </ApprovalCard>
+      <ApprovalCard>
+        <CommentDetail
+          name="Jane"
+          text="dang"
+          time="7:00"
+          image={faker.image.avatar()}
+        />
+      </ApprovalCard>
+      <ApprovalCard>
+        <CommentDetail
+          name="Karl"
+          text="Yeah!!!"
+          time="8:00"
+          image={faker.image.avatar()}
+        />
+      </ApprovalCard>
     </div>
   );
-  ReactDOM.render(template, document.getElementById("root"));
 };
-
-render();
+ReactDOM.render(<App />, document.getElementById("root"));
